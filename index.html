@@ -642,95 +642,21 @@
             }
             type();
 
-            // --- Lógica para el Chatbot ---
-            const chatMessagesContainer = document.getElementById('chat-messages');
-            const chatInput = document.getElementById('chat-input-field');
-            const sendButton = document.getElementById('send-button');
-            const apiUrl = 'https://juanjlb2005-rag-juan.hf.space/api/v1/process/RAG-JUAN';
-
-            function addChatMessage(text, type) {
-                const messageElement = document.createElement('div');
-                messageElement.classList.add('message', type);
-                messageElement.textContent = text;
-                chatMessagesContainer.appendChild(messageElement);
-                chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
-            }
-
-            function showTypingIndicator() {
-                const typingIndicator = document.createElement('div');
-                typingIndicator.classList.add('message', 'received', 'typing-indicator');
-                typingIndicator.innerHTML = '<span></span><span></span><span></span>';
-                chatMessagesContainer.appendChild(typingIndicator);
-                chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
-                return typingIndicator;
-            }
-
-            async function handleSendMessage() {
-                const userMessage = chatInput.value.trim();
-                if (!userMessage) return;
-
-                addChatMessage(userMessage, 'sent');
-                chatInput.value = '';
-                const typingIndicator = showTypingIndicator();
-
-                try {
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ "inputs": { "query": userMessage }, "tweaks": {} })
-                    });
-
-                    if (!response.ok) {
-                        throw new Error(`Error en la red: ${response.statusText}`);
-                    }
-
-                    const result = await response.json();
-                    
-                    const botMessage = result?.result?.text || result?.output || result?.result?.answer || "No se pudo obtener una respuesta.";
-
-                    chatMessagesContainer.removeChild(typingIndicator);
-                    addChatMessage(botMessage, 'received');
-
-                } catch (error) {
-                    console.error("Error al contactar la API del chatbot:", error);
-                    chatMessagesContainer.removeChild(typingIndicator);
-                    addChatMessage("Lo siento, hubo un problema de conexión. Por favor, inténtalo más tarde.", 'received');
-                }
-            }
-
-            sendButton.addEventListener('click', handleSendMessage);
-            chatInput.addEventListener('keydown', (event) => {
-                if (event.key === 'Enter') {
-                    event.preventDefault(); 
-                    handleSendMessage();
-                }
-            });
-
-            function showWelcomeMessage() {
-                 addChatMessage('¡Hola! Soy un asistente virtual. ¿En qué puedo ayudarte hoy?', 'received');
-            }
-
-
+            
             // --- Animaciones de revelación al hacer scroll ---
             const revealElements = document.querySelectorAll('.reveal');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        
-                        if (entry.target.id === 'chatbot' && !chatMessagesContainer.hasChildNodes()) {
-                            showWelcomeMessage();
-                        }
 
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.1 });
+const observer = new IntersectionObserver((entries, obs) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      obs.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
 
-            revealElements.forEach(el => {
-                observer.observe(el);
-            });
-        });
+revealElements.forEach(el => observer.observe(el));
+             });
     </script>
     <script
   src="https://cdn.jsdelivr.net/gh/logspace-ai/langflow-embedded-chat@v1.0.7/dist/build/static/js/bundle.min.js">

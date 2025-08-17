@@ -553,15 +553,14 @@
           <div class="content-wrapper">
             <h2 class="gradient-text">Hablemos con mi IA</h2>
         
-            <langflow-chat
-              window_title="RAG-JUAN"
-              flow_id="b83ef24a-bd69-4a07-8fd0-4a3047baf0f5"
-              host_url="https://juanjlb2005-rag-juan.hf.space"
-              theme="dark"
-              placeholder="Escribe tu pregunta..."
-              accent_color="#4f46e5"
-              position="right">
-            </langflow-chat>
+           <script
+  src="https://cdn.jsdelivr.net/gh/logspace-ai/langflow-embedded-chat@v1.0.7/dist/build/static/js/bundle.min.js">
+</script>
+  <langflow-chat
+    window_title="RAG-JUAN"
+    flow_id="b83ef24a-bd69-4a07-8fd0-4a3047baf0f5"
+    host_url="https://juanjlb2005-rag-juan.hf.space">
+</langflow-chat>
           </div>
         </section>
 
@@ -731,7 +730,5 @@
             });
         });
     </script>
-    <script src="https://cdn.jsdelivr.net/gh/logspace-ai/langflow-embedded-chat@v1.0.7/dist/build/static/js/bundle.min.js"></script>
-
-</body>
+   </body>
 </html>

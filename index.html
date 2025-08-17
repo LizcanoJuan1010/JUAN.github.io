@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="no-js">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -450,9 +450,27 @@
             .about-row { flex-direction: column !important; }
             #contacto .content-wrapper { padding: 30px; }
         }
+        langflow-chat{
+              display: block;
+              width: 100%;
+              max-width: 600px;
+              min-height: 520px;  /* alto visible del widget */
+              margin: 0 auto;
+              z-index: 5;
+            }
+        /* Visible por defecto (si JS falla) */
+        .no-js .reveal { opacity: 1; transform: none; }
+        
+        /* Solo oculto cuando sí hay JS para manejarlo */
+        .js .reveal { opacity: 0; transform: translateY(50px); transition: opacity .8s, transform .8s; }
+        .reveal.visible { opacity: 1; transform: none; }
     </style>
 </head>
 <body>
+    <script>
+    document.documentElement.classList.remove('no-js');
+    document.documentElement.classList.add('js');
+  </script>
     <div id="particles-js"></div>
     
     <nav id="navbar">
@@ -549,7 +567,7 @@
             </div>
         </section>
         <!-- === CHATBOT (LangFlow) === -->
-        <section id="chatbot" class="reveal">
+        <section id="chatbot">
           <div class="content-wrapper">
             <h2 class="gradient-text">Hablemos con mi IA</h2>
         

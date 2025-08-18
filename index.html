@@ -726,6 +726,7 @@ const observer = new IntersectionObserver((entries, obs) => {
 }, { threshold: 0.1 });
 
 revealElements.forEach(el => observer.observe(el));
+window.scrollTo(0, 0);
              });
     </script>
     <script

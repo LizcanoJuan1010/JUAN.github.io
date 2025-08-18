@@ -466,17 +466,30 @@
         .reveal.visible { opacity: 1; transform: none; }
                 /* 1) Limita el absolute del viewer SOLO a #inicio y #contacto,
            ponlo detrás y sin capturar eventos */
-        #inicio spline-viewer,
-        #contacto spline-viewer {
-          position: absolute;
-          inset: 0;
-          width: 100%;
-          height: 100%;
-          outline: none;
-          z-index: 0;            /* detrás */
-          pointer-events: none;  /* no tapa clics */
+        /* --- CÓDIGO CORREGIDO --- */
+
+/* 1. Estilos para la animación de INICIO (interactiva) */
+        #inicio spline-viewer {
+            position: absolute;
+            inset: 0; /* equivale a top, right, bottom, left: 0 */
+            width: 100%;
+            height: 100%;
+            outline: none;
+            z-index: 0; 
+            /* Quitamos 'pointer-events: none;' para que funcione el cursor */
         }
         
+        /* 2. Estilos para la animación de CONTACTO (solo fondo) */
+        #contacto spline-viewer {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            outline: none;
+            z-index: 0;
+            pointer-events: none; /* La mantenemos aquí para no bloquear los links */
+        }
+                
         /* 2) Asegura que el chat quede siempre encima y con espacio abajo */
         #chatbot {
           position: relative;
